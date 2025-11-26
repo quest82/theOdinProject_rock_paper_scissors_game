@@ -35,11 +35,11 @@ function getComputerChoice() {
 	return gamesArray[randomChoice];
 }  // This function randomly selects for the computer's choice
 
-function getHumanChoice() {
-	let choice = prompt(
-		"Enter your game choice between (rock, paper & scissors):"
-	);
-	return choice.toLowerCase();
-} // This function asks for the choice of the player and makes it lower case
+// function getHumanChoice() {
+// 	let choice = prompt(
+// 		"Enter your game choice between (rock, paper & scissors):"
+// 	);
+// 	return choice.toLowerCase();
+// } // This function asks for the choice of the player and makes it lower case
 
 playGame(); // Calls the playGame function
