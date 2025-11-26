@@ -1,19 +1,52 @@
+const computerResult = document.querySelector(".computerResult span");
+const humanResult = document.querySelector(".humanResult span");
+const resultContainer = document.querySelector(".gameResult");
+const button = document.querySelectorAll(".btn");
+const gameStatus = document.querySelector(".gameStatus");
+
 let humanScore = 0;
 let computerScore = 0;
 
-function playGame() {
-	for (let i = 1; i <= 5; i++) {
-		const humanSelection = getHumanChoice(); // Saves the result of the getHumanChoice function
-		const computerSelection = getComputerChoice(); // Saves the result of the getComputerChoice function
+button.forEach((btn) => {
+	btn.addEventListener("click", () => {
+		let humanSelection;
+		const computerSelection = getComputerChoice();
+
+		// RESET
+		gameStatus.textContent = " ";
+
+		if (btn.classList.contains("rock")) {
+			humanSelection = btn.textContent.toLowerCase();
+		} else if (btn.classList.contains("paper")) {
+			humanSelection = btn.textContent.toLowerCase();
+		} else {
+			humanSelection = btn.textContent.toLowerCase();
+		}
+		console.log(humanSelection);
 
 		playRound(humanSelection, computerSelection);
-	}
-	console.log('Your final score is: ', humanScore);
-}
+		computerResult.textContent = computerScore;
+		humanResult.textContent = humanScore;
+
+		if (humanScore === 5 || computerScore === 5) {
+			btn.parentElement.parentElement.style.display = "none";
+		}
+
+		if (humanScore === 5) {
+			gameStatus.textContent = `You won.`;
+			gameStatus.style.fontSize = "27px";
+		}
+
+		if (computerScore === 5) {
+			gameStatus.textContent = "Computer won.";
+			gameStatus.style.fontSize = "27px";
+		}
+	});
+});
 
 function playRound(humanChoice, computerChoice) {
 	if (humanChoice === computerChoice) {
-		console.log("Same choice, let's play again");
+		gameStatus.textContent = "Same choice, let's play again";
 	} else if (humanChoice === "rock" && computerChoice === "paper") {
 		console.log("You lose! Paper beats Rock");
 		computerScore += 1;
@@ -33,13 +66,4 @@ function getComputerChoice() {
 	let gamesArray = ["rock", "paper", "scissors"];
 	let randomChoice = Math.floor(Math.random() * gamesArray.length);
 	return gamesArray[randomChoice];
-}  // This function randomly selects for the computer's choice
-
-// function getHumanChoice() {
-// 	let choice = prompt(
-// 		"Enter your game choice between (rock, paper & scissors):"
-// 	);
-// 	return choice.toLowerCase();
-// } // This function asks for the choice of the player and makes it lower case
-
-playGame(); // Calls the playGame function
+}
